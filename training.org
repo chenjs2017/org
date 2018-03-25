@@ -1,0 +1,78 @@
+#+SEQ_TODO: NEXT(n) TODO(t) WAITING(w) PROJ(p) | DONE(d) CANCELLED(c)
+
+* chrome
+
+As I am a user of vimium, it turns out I had the capabilities already shipped with it even though I wasn't aware that it existed.
+
+Search the starting point by: /yourSeach
+Press enter.
+Enable visual mode via: v, and visual mode on a line basis via Shift + V
+Select text by vim navigation keys, aka: h, j, k, l, b, e, w, $ (I especially like shift + w, as it goes to the end of the next word)
+Yank via y
+You now can switch the context and paste the text via Ctrl+V
+
+There also seems to be a caret mode, yet as of yet I somtimes don't see the current place of the cursor, which is why I prefer the search-first approach as of now.
+* Mac
+** Multi Desktop
+Ctrl + <left> / <right> swith desktop
+Ctrl + <up> / <down> open/close mission control
+Hold maximum window key, choose left or right screen
+
+* Window
+  Win - <left>, Win - <Right> - <Up> <Down>
+* c shar
+** common tipes
+*** async
+**** TASK.RUN VS ASYNC AWAIT
+	http://www.hexacta.com/2016/06/01/task-run-vs-async-await/
+**** Async/Await - Best Practices in Asynchronous Programming
+	 https://msdn.microsoft.com/en-us/magazine/jj991977.aspx
+*** WebClient vs HttpClient vs HttpWebRequest
+	http://www.diogonunes.com/blog/webclient-vs-httpclient-vs-httpwebrequest/
+
+* Emacs*
+** common tips:
+*** rectangle select c+x , then press SPC
+*** cut, past copy
+	Cut the text c-w
+	copy the text M-w
+	past the text c-y
+*** Input TAB	
+	C-q <TAB>
+	
+*** to delete a line
+	ctrl + shift + backspace
+	ctrl-a, ctrl-k, ctrl-k
+*** Kill buffer
+    C+x, K
+*** reload init.el
+	M+X, load_file
+*** external link
+	create or edit a link C-c C-l
+	open a link C-c C-o
+
+*** turn off welcome screen
+(setq inhibit-startup-message t)
+(setq inhibit-splash-screen t)
+
+** org
+*** Headlines - Outline mode
+     Tab: 	Local visibility cycling
+     Shift-Tab: Global Visibility Cycling
+     m-<right>:	Increase level
+     m-<left>:	Decrease leve
+     m-<up>:	Move up with in a level
+     Alt-<down>:Move down within a level
+     C-c ,c-w:	Cut a headline
+     C-c, C-c: Active the setting line
+*** Schedule, deadline & agenda view
+    add a schedule, ctrl-c ctrl-s
+    add a deadline, ctrl-c ctrl-d
+    switch to agenda view M-x, org-agenda
+    show events scheduled, org-agenda-file-to-front, C-c [
+    Move forward, F
+    Move backword, B
+    Follow the mode, shift + f
+	
+** omnisharp
+** eshell
