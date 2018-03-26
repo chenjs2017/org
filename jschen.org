@@ -15,7 +15,6 @@
       https://developer.paypal.com/docs/api/invoicing/#invoices_qr_code
       https://developer.paypal.com/docs/integration/direct/invoicing/
 *** Feedback 3/21
-**** questions
 **** DONE 1)	Everything should be Zimmet Seminar instead of Zimmet Summit.
      CLOSED: [2018-03-22 Thu 09:46]
      change the user name to Zimmet Seminar
@@ -90,6 +89,9 @@ The Zimmet Team
 **** DONE 8)	In the event registration record in CRM, can you please add the (Kosher Meals, CPA Certificate, and Administrator fields)
       CLOSED: [2018-03-22 Thu 14:08]
 
+*** Feedback 3/26
+**** change email to outlook email
+**** add image to invoice
 
 ** B2C login
 ** Payment Gateway
