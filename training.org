@@ -75,3 +75,12 @@ Hold maximum window key, choose left or right screen
     Follow the mode, shift + f
 	
 ** omnisharp
+** emacs with git
+*** install through melpa, M-x package-install RET magit RET
+*** Getting started with Magit
+**** M-x magit-status
+**** s to stage file
+**** c c to commit(type the message then C-c C-c to actually commit)
+**** b b to switch
+**** P u git push
+**** F u to do a git pull
