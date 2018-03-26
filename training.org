@@ -66,13 +66,13 @@ Hold maximum window key, choose left or right screen
      C-c ,c-w:	Cut a headline
      C-c, C-c: Active the setting line
 *** Schedule, deadline & agenda view
-    add a schedule, ctrl-c ctrl-s
-    add a deadline, ctrl-c ctrl-d
-    switch to agenda view M-x, org-agenda
-    show events scheduled, org-agenda-file-to-front, C-c [
-    Move forward, F
-    Move backword, B
-    Follow the mode, shift + f
+**** add a schedule, ctrl-c ctrl-s
+**** add a deadline, ctrl-c ctrl-d
+**** switch to agenda view M-x, org-agenda
+**** show events scheduled, org-agenda-file-to-front, C-c [
+**** Move forward, F
+**** Move backword, B
+**** Follow the mode, shift + f
 	
 ** omnisharp
 ** emacs with git
