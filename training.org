@@ -75,4 +75,3 @@ Hold maximum window key, choose left or right screen
     Follow the mode, shift + f
 	
 ** omnisharp
-** eshell
