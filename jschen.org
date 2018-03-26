@@ -4,16 +4,17 @@
 *** User Input their information for register
 *** Administrator can see the register information, and select discount
 *** Sned paypal invoice to customer, either
+**** refrence 
+***** https://stackoverflow.com/questions/25976606/retrieving-payment-url-for-a-paypal-invoice
+***** https://developer.paypal.com/docs/api/invoicing/#invoices_qr_code
+***** https://docs.microsoft.com/en-us/dynamics365/customer-engagement/admin/connect-exchange-server-on-premises
+***** https://developer.paypal.com/docs/integration/direct/invoicing/
 **** Paypal Sandbox Account
       jaikechen-facilitator@gmail.com / Dynamic 2018
       jaikechen-buyer@gmail.com / Dynamic2018
       jaikechen@gmail.com / Chenjs123!
 **** let paypal sned the email, or
 **** send the customer email, give them a paypal pay link
-***** refrence 
-      https://stackoverflow.com/questions/25976606/retrieving-payment-url-for-a-paypal-invoice
-      https://developer.paypal.com/docs/api/invoicing/#invoices_qr_code
-      https://developer.paypal.com/docs/integration/direct/invoicing/
 *** Feedback 3/21
 **** DONE 1)	Everything should be Zimmet Seminar instead of Zimmet Summit.
      CLOSED: [2018-03-22 Thu 09:46]
@@ -92,8 +93,12 @@ The Zimmet Team
 *** Feedback 3/26
 **** change email to outlook email
 **** add image to invoice
-
-** B2C login
+**** common user can not see/ aprove event registration
+give role the privilege of accessing core/custom entity 
+**** common user can not sent email
+***** Settings > Security Roles > Sales Person > Business Management > Miscellaneous Privileges > Send Email as another User
+***** login in as admin, Options > Email > Allow other Microsoft Dynamic 365 User to send email on your behalf
+** B2C login 
 ** Payment Gateway
 * Daily Log
 ** 3/9
