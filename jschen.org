@@ -98,6 +98,35 @@ give role the privilege of accessing core/custom entity
 **** common user can not sent email
 ***** Settings > Security Roles > Sales Person > Business Management > Miscellaneous Privileges > Send Email as another User
 ***** login in as admin, Options > Email > Allow other Microsoft Dynamic 365 User to send email on your behalf
+*** Multi Users
+
+**** Entity Changes 1 hours
+***** 'Attendee Count'(whole number, range 1-1000) and 'Attendee List'(Multline Text) to entity 'event registration'.
+***** add new entity 'Event Attendee', which is a child entity of 'Event registration', has 5 fields, first name, last name, title, email, telephone, extent, event registration ID
+
+**** Portal Changes 12 hours
+***** change the webform, if 'Attendee Count' > 1, go to a step 'Attendee List'
+***** the page 'Attendee List',
+****** Promote User, You need to input {Attendee Count - 1} Attendee information ,because the user have input an attendee in the first step 
+****** Top of the page, 5 textboxes: First Name, last Name, Title, Email, Telephone, Extent, a button 'Add'
+****** Bottom of the page, a grid list all the attendees user have input, user can Delete a record from the list
+****** Verify record count == 'Attendee Count' - 1, 
+****** The Attendee List are encoded to Json string, then store to 'Attendee List'
+****** In the review step, Amount = 'Attendee Count'  * Amount
+
+**** The Add in 4 hours
+***** add the main attendee to 'Event Attendee'
+***** if Attendee Count > 1, Decode Attendee List, add each attendee to 'Event Attendee'
+
+**** CRM
+***** add a new view 'Attendee list', 4 hours
+****** Entities: 'Event Attendee' join 'Event Registration';
+****** Fields: First Name, Last Name, Title, Email, Telephone, Extent, Organiztion,Type
+
+***** Change of event registration,(optional) 4 Hours
+****** add Attendee Count to list view and detail form
+****** Display 'Attend List' as Grid in detail form.
+
 ** B2C login 
 ** Payment Gateway
 * Daily Log
