@@ -1,28 +1,22 @@
 #+SEQ_TODO:   NEXT(n) TODO(t) WAITING(w) SOMEDAY(s) PROJ(p) | DONE(d) CANCELLED(c)
-* Todo list
-** Membership Invoice
-*** User Input their information for register
-*** Administrator can see the register information, and select discount
-*** Sned paypal invoice to customer, either
-**** refrence 
-***** https://stackoverflow.com/questions/25976606/retrieving-payment-url-for-a-paypal-invoice
-***** https://developer.paypal.com/docs/api/invoicing/#invoices_qr_code
-***** https://docs.microsoft.com/en-us/dynamics365/customer-engagement/admin/connect-exchange-server-on-premises
-***** https://developer.paypal.com/docs/integration/direct/invoicing/
-**** Paypal Sandbox Account
+* Membership Invoice
+** User Input their information for register
+** Administrator can see the register information, and select discount
+** Sned paypal invoice to customer, either
+*** Paypal Sandbox Account
       jaikechen-facilitator@gmail.com / Dynamic 2018
       jaikechen-buyer@gmail.com / Dynamic2018
       jaikechen@gmail.com / Chenjs123!
-**** let paypal sned the email, or
-**** send the customer email, give them a paypal pay link
-*** Feedback 3/21
-**** DONE 1)	Everything should be Zimmet Seminar instead of Zimmet Summit.
+*** let paypal sned the email, or
+*** send the customer email, give them a paypal pay link
+** Feedback 3/21
+*** DONE 1)	Everything should be Zimmet Seminar instead of Zimmet Summit.
      CLOSED: [2018-03-22 Thu 09:46]
      change the user name to Zimmet Seminar
-**** DONE 2)	On the registration page please remove everything that is not related to registrations
+*** DONE 2)	On the registration page please remove everything that is not related to registrations
      CLOSED: [2018-03-22 Thu 09:47]
      Portal > Web Templates > Footer > , remove section id=gethelp
-**** DONE 3)	On the registration confirmation page:
+*** DONE 3)	On the registration confirmation page:
      CLOSED: [2018-03-22 Thu 16:33]
 ***** DONE a) The page should be titled: “My Registration Information” in a large font
       CLOSED: [2018-03-22 Thu 10:10]
@@ -30,7 +24,7 @@
       CLOSED: [2018-03-22 Thu 10:11]
 ***** DONE c) Below it should read: Please note, your registration is not confirmed until payment is received. You will receive a separate e-mail from Zimmet Seminar with payment details within 3 business days
       CLOSED: [2018-03-22 Thu 10:11]
-**** DONE 4)	In the registration e-mail, please change it to the following format:
+*** DONE 4)	In the registration e-mail, please change it to the following format:
       CLOSED: [2018-03-22 Thu 16:31]
 
 Hi [First Name, Last Name]
@@ -60,13 +54,13 @@ Looking forward to seeing you,
 
 The Zimmet Team
 
-**** 5)	On the PayPal invoice, please add:
+*** 5)	On the PayPal invoice, please add:
 a) The Zimmet Logo
 ***** DONE b) The Zimmet Address
       CLOSED: [2018-03-22 Thu 16:35]
 ***** DONE c) The Zimmet Telephone Number
       CLOSED: [2018-03-22 Thu 16:35]
-**** DONE 6)	In the payment confirmation e-mail, please change is to the following:
+*** DONE 6)	In the payment confirmation e-mail, please change is to the following:
      CLOSED: [2018-03-22 Thu 16:34]
 
 Hi [First Name, Last Name]
@@ -85,26 +79,33 @@ Please call 732-970-0733 if you have any questions.
 Looking forward to seeing you,
 
 The Zimmet Team
-**** DONE 7)	In the event registration list, can you add the address of the facility (Address, City, State) 
+*** DONE 7)	In the event registration list, can you add the address of the facility (Address, City, State) 
       CLOSED: [2018-03-22 Thu 14:08]
-**** DONE 8)	In the event registration record in CRM, can you please add the (Kosher Meals, CPA Certificate, and Administrator fields)
+*** DONE 8)	In the event registration record in CRM, can you please add the (Kosher Meals, CPA Certificate, and Administrator fields)
       CLOSED: [2018-03-22 Thu 14:08]
 
-*** Feedback 3/26
-**** change email to outlook email
-**** add image to invoice
-**** common user can not see/ aprove event registration
-give role the privilege of accessing core/custom entity 
-**** common user can not sent email
+** Feedback 3/26
+*** change email to outlook email
+*** add image to invoice
+*** DONE common user can not see/ aprove event registration
+    CLOSED: [2018-03-28 Wed 10:39]
+**** give role the privilege of accessing core/custom entity 
+*** DONE common user can not sent email
+    CLOSED: [2018-03-28 Wed 10:39]
 ***** Settings > Security Roles > Sales Person > Business Management > Miscellaneous Privileges > Send Email as another User
 ***** login in as admin, Options > Email > Allow other Microsoft Dynamic 365 User to send email on your behalf
-*** Multi Users
+** Feedback 3/27 
+*** bcc email is verified 
+*** paid change be modify
+*** if a record updated, and paid = true, send a confirmation email, if paid = false and invoiceID is null, then create an invoice and send an invoice email
 
-**** Entity Changes 1 hours
+
+** Multi Users
+*** Entity Changes 1 hours
 ***** 'Attendee Count'(whole number, range 1-1000) and 'Attendee List'(Multline Text) to entity 'event registration'.
 ***** add new entity 'Event Attendee', which is a child entity of 'Event registration', has 5 fields, first name, last name, title, email, telephone, extent, event registration ID
 
-**** Portal Changes 12 hours
+*** Portal Changes 12 hours
 ***** change the webform, if 'Attendee Count' > 1, go to a step 'Attendee List'
 ***** the page 'Attendee List',
 ****** Promote User, You need to input {Attendee Count - 1} Attendee information ,because the user have input an attendee in the first step 
@@ -114,11 +115,11 @@ give role the privilege of accessing core/custom entity
 ****** The Attendee List are encoded to Json string, then store to 'Attendee List'
 ****** In the review step, Amount = 'Attendee Count'  * Amount
 
-**** The Add in 4 hours
+*** The Add in 4 hours
 ***** add the main attendee to 'Event Attendee'
 ***** if Attendee Count > 1, Decode Attendee List, add each attendee to 'Event Attendee'
 
-**** CRM
+*** CRM
 ***** add a new view 'Attendee list', 4 hours
 ****** Entities: 'Event Attendee' join 'Event Registration';
 ****** Fields: First Name, Last Name, Title, Email, Telephone, Extent, Organiztion,Type
@@ -127,172 +128,8 @@ give role the privilege of accessing core/custom entity
 ****** add Attendee Count to list view and detail form
 ****** Display 'Attend List' as Grid in detail form.
 
-** B2C login 
-** Payment Gateway
-* Daily Log
-** 3/9
-Begin to write log with emacs
-
---------------------------------------------------------------
-3/7, use iframe to got token
-
-stripeToken
-
-
-3/5/2018
-Application-Name		AzureB2CApp
-Application-ID			7d741e84-8382-4b52-b2ef-7ed0126e69ed
-Policy-Signin-URL		https://login.microsoftonline.com/tfp/52c8a836-d9e0-4dd9-8465-451634d7a970/b2c_1_siupin/v2.0/"
-Federation-Name		AZUREB2C
-
-Application-Name		Jack
-Application-ID			b598b0ec-a0e5-43d2-b60a-8205064b8786
-Policy-Signin-URL		https://loginment.microsoftonline.com/tfp/52c8a836-d9e0-4dd9-8465-451634d7a970/b2c_1_jack/v2.0/
-Federation-Name		Jack
-
-
-
-
-
-
-
-
-
-
-backup system using 
-C:\Users\JackChen\Dynamic SDK Tools\ConfigurationMigration\DataMigrationUtility.exe
-
-https://simplecommerce.financials.dynamics.com:7047/MS/WS/Page/Sales_Invoice
-JINGSHUN
-s2u8b6rfm1cu9DDtExAv1GUwVoPgD5jFK012UFMFRVM=
-
-
-Website 
-https://hartogjacobs.financials.dynamics.com 
-https://hartogjacobs-sandbox.financials.dynamics.com 
-2/27
-
-Let customers pay in dynamic portal
-1. how to modify invoice PDF add a link to portal?
-2. How to publish invoice as web service?
-3. how to use Angular JS get invoice?
-4. How to update invoice status?
-
-
-
-
-C/AL code
-https://docs.microsoft.com/en-us/dynamics-nav/programming-in-c-al
-
-Walkthrough: Creating and Using a Client Control Add-in
-https://msdn.microsoft.com/en-us/library/dn182584(v=nav.80).aspx
-
-
-Dynamic Nav to integrate Strip
-
-Dynamic Nav
-https://docs.microsoft.com/en-us/dynamics-nav/developer/devenv-extension-example
-https://github.com/Microsoft/AL
-
-Credit Card Extension
-https://appsource.microsoft.com/en-us/product/dynamics-365-for-finance-and-operations-business-edition/PUBID.navx%7CAID.1b9fd790-1e26-43e2-8071-eaad88403002%7CPAPPID.344c6727-ea41-41fa-9b56-2fba703813b8?tab=Overview
-
-Dynamic Nav stripe integration
-https://www.codelessplatforms.com/solutions/stripe-microsoft-dynamics-nav-integration/
-
-2/22:
-
-5362 1911 0113 0605
-
-2/21:
-+ test amount issue,
-+ put all parameter to dynamic entity,
-+ when pay succeed, change new_order status to paid,
-+ don't display token in first step,
-+ hide all control in step2
-
-
-
-
-2/20/2018:
-So the total cost of the project: 
-
-Azure App Service 0.013/hour
-Google Play Developer account will cost you $25 (one time),
-Apple iTunes Developer account will cost you $99/year and 
-Windows Developer account will cost you $19/year. 
-SQL Server Database 0.021/hour
-1. register diffrect accounts, setup developing environments: 1 days:
-2. get push notification and schedule run on my own test phone: 5 days
-3. publish to app store: apple's review procedure is very complicated, it might takes days, and they might just say the app is not good enough to add to app store
-4. test push notification, 2 days.
-
-
-https://docs.microsoft.com/en-us/azure/app-service-mobile/
-https://docs.microsoft.com/en-us/azure/app-service-mobile/app-service-mobile-xamarin-forms-get-started
-
-
-2/19/2018:
-https://github.com/AuthorizeNet/accept-sample-app/blob/master/README-AcceptHosted.md
-
-2/13/2018:
-
-
-
-Angular JS to customize Edit
-https://community.dynamics.com/crm/b/alexanderdevelopment/archive/2016/11/07/angularjs-demo-solution-for-dynamics-crm
-Dynamic Nav
-https://docs.microsoft.com/en-us/dynamics-nav/developer/devenv-extension-example
-https://github.com/Microsoft/AL
-
-Credit Card Extension
-https://appsource.microsoft.com/en-us/product/dynamics-365-for-finance-and-operations-business-edition/PUBID.navx%7CAID.1b9fd790-1e26-43e2-8071-eaad88403002%7CPAPPID.344c6727-ea41-41fa-9b56-2fba703813b8?tab=Overview
-
-Dynamic Nav stripe integration
-https://www.codelessplatforms.com/solutions/stripe-microsoft-dynamics-nav-integration/
-2/15/2018
-Create product: productnumber=140212000, name=C6, parentproductid=bd01b1ca-7812-e811-a956-000d3a34a108
-
-2/12/2018
-
-to edit site map
-https://xrm.tools/siteMapEditor
-
-debug a plugin-in-dynamics-365-online-using-plugin-profiler/
-https://dynamics365blocks.wordpress.com/2016/12/06/how-to-debug-a-plugin-in-dynamics-365-online-using-plugin-profiler/
-
-Register a plug
-https://msdn.microsoft.com/en-in/library/gg309580.aspx
-2/3/2018
-Dynanics Sandbox: hjsandbox0.crm.dynamics.com
-Dynamics production: hartogjacobs.crm.dynamics.com 
-https://hjhelp.microsoftcrmportals.com/SignIn?returnUrl=%2F
-https://jingshun.crm.dynamics.com
-
-I got some videos about Dynamic Development
-View Module 1 here: https://youtu.be/GI54dCi2sIg 
-View Module 2 here: https://youtu.be/MC2NaanB5Mk
-https://www.youtube.com/watch?v=c-TrDYQ6VQY
-
-2/1/2018
-
-
-
-dnn introduction
-
-https://www.youtube.com/watch?v=NV73uBk-yQc
-
-1/31/2018
-1. Google web designer 
-https://www.google.com/webdesigner
-
-2. DoubleClick
-https://www.doubleclickbygoogle.com/
-
-3. change http://www.talklinecommunications.com/ to http://abc7ny.com/
-
-
-4.asp.net template:
-
-https://stackoverflow.com/questions/16116081/asp-net-web-application-templates
-http://www.dnnsoftware.com/community/download
+** refrence 
+*** https://stackoverflow.com/questions/25976606/retrieving-payment-url-for-a-paypal-invoice
+*** https://developer.paypal.com/docs/api/invoicing/#invoices_qr_code
+*** https://docs.microsoft.com/en-us/dynamics365/customer-engagement/admin/connect-exchange-server-on-premises
+*** https://developer.paypal.com/docs/integration/direct/invoicing/
