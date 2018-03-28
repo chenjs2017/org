@@ -34,22 +34,19 @@ Hold maximum window key, choose left or right screen
 ** common tips:
 *** rectangle select c+x , then press SPC
 *** cut, past copy
-	Cut the text c-w
-	copy the text M-w
-	past the text c-y
-*** Input TAB	
-	C-q <TAB>
+**** Cut the text c-w
+**** copy the text M-w
+**** past the text c-y
+*** Input TAB	C-q <TAB>
 	
 *** to delete a line
-	ctrl + shift + backspace
-	ctrl-a, ctrl-k, ctrl-k
-*** Kill buffer
-    C+x, K
-*** reload init.el
-	M+X, load_file
-*** external link
-	create or edit a link C-c C-l
-	open a link C-c C-o
+**** ctrl + shift + backspace
+**** ctrl-a, ctrl-k, ctrl-k
+*** Kill buffer: C+x, K
+*** Reload init.el: M+X, load_file
+*** External link
+**** create or edit a link C-c C-l
+**** open a link C-c C-o
 
 *** turn off welcome screen
 (setq inhibit-startup-message t)
@@ -57,14 +54,14 @@ Hold maximum window key, choose left or right screen
 
 ** org
 *** Headlines - Outline mode
-     Tab: 	Local visibility cycling
-     Shift-Tab: Global Visibility Cycling
-     m-<right>:	Increase level
-     m-<left>:	Decrease leve
-     m-<up>:	Move up with in a level
-     Alt-<down>:Move down within a level
-     C-c ,c-w:	Cut a headline
-     C-c, C-c: Active the setting line
+**** Tab: 	Local visibility cycling
+**** Shift-Tab: Global Visibility Cycling
+**** m-<right>:	Increase level
+**** m-<left>:	Decrease leve
+**** m-<up>:	Move up with in a level
+**** Alt-<down>:Move down within a level
+**** C-c ,c-w:	Cut a headline
+**** C-c, C-c: Active the setting line
 *** Schedule, deadline & agenda view
 **** add a schedule, ctrl-c ctrl-s
 **** add a deadline, ctrl-c ctrl-d
@@ -72,9 +69,7 @@ Hold maximum window key, choose left or right screen
 **** show events scheduled, org-agenda-file-to-front, C-c [
 **** Move forward, F
 **** Move backword, B
-**** Follow the mode, shift + f
 	
-** omnisharp
 ** emacs with git
 *** install through melpa, M-x package-install RET magit RET
 *** Getting started with Magit
