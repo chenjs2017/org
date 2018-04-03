@@ -54,8 +54,8 @@ Looking forward to seeing you,
 
 The Zimmet Team
 
-*** 5)	On the PayPal invoice, please add:
-a) The Zimmet Logo
+*** DONE 5)	On the PayPal invoice, please add:
+    CLOSED: [2018-03-29 Thu 09:25]
 ***** DONE b) The Zimmet Address
       CLOSED: [2018-03-22 Thu 16:35]
 ***** DONE c) The Zimmet Telephone Number
@@ -85,8 +85,8 @@ The Zimmet Team
       CLOSED: [2018-03-22 Thu 14:08]
 
 ** Feedback 3/26
-*** change email to outlook email
-*** add image to invoice
+*** TODO change email to outlook email
+*** TODO add image to invoice
 *** DONE common user can not see/ aprove event registration
     CLOSED: [2018-03-28 Wed 10:39]
 **** give role the privilege of accessing core/custom entity 
@@ -95,11 +95,29 @@ The Zimmet Team
 ***** Settings > Security Roles > Sales Person > Business Management > Miscellaneous Privileges > Send Email as another User
 ***** login in as admin, Options > Email > Allow other Microsoft Dynamic 365 User to send email on your behalf
 ** Feedback 3/27 
-*** bcc email is verified 
-*** paid change be modify
-*** if a record updated, and paid = true, send a confirmation email, if paid = false and invoiceID is null, then create an invoice and send an invoice email
+*** DONE bcc email is verified 
+    CLOSED: [2018-03-28 Wed 16:40]*
+*** DONE paid change be modify
+    CLOSED: [2018-03-28 Wed 16:40]*
+*** DONE if a record updated, and paid = true, send a confirmation email, if paid = false and invoiceID is null, then create an invoice and send an invoice email
+    CLOSED: [2018-03-28 Wed 16:40]
+*** DONE back date before operation
+    CLOSED: [2018-03-28 Wed 19:38]
+https://docs.microsoft.com/en-us/dynamics365/customer-engagement/admin/backup-restore-instances
+*** DONE bug: forget to extract data, add a batch extract data method
+    CLOSED: [2018-03-28 Wed 19:38]
+*** DONE change email address to zimmetseminar@gmail.com/Dynamic2018
+    CLOSED: [2018-03-28 Wed 19:38]
+*** DONE test when set paid, if extract date success
+    CLOSED: [2018-03-28 Wed 19:38]
 
+*** DONE Registration Page Change, Name of Comany for Supplier/Vendor, add 'AS YOU WANT IT TO APPEAR ON YOUR NAME BADGE
+    CLOSED: [2018-03-29 Thu 13:48]
 
+** Feedback 3/29
+*** DONE uncheck all  is SNF redio box 
+    CLOSED: [2018-03-29 Thu 13:51]
+*** TODO custom amount, remove any limitation
 ** Multi Users
 *** Entity Changes 1 hours
 ***** 'Attendee Count'(whole number, range 1-1000) and 'Attendee List'(Multline Text) to entity 'event registration'.
@@ -133,3 +151,35 @@ The Zimmet Team
 *** https://developer.paypal.com/docs/api/invoicing/#invoices_qr_code
 *** https://docs.microsoft.com/en-us/dynamics365/customer-engagement/admin/connect-exchange-server-on-premises
 *** https://developer.paypal.com/docs/integration/direct/invoicing/
+** to investigate
+*** DONE how to use oData
+    CLOSED: [2018-04-02 Mon 08:22]
+**** http://abhinavranjan.xyz/2017/08/22/using-entity-list-as-odata-feed-dynamics-365-portal/
+**** filter odatavar oDataUrl = "/_odata/ContactSet?$filter=parentcustomerid eq guid'" + selectedAccountId + "'";
+
+*** how to update add-in by sdk
+https://www.magnetismsolutions.com/blog/gayanperera/2016/03/03/register-crm-2016-plugins-and-steps-programmatically
+*** how to add/delete delete job by sdk
+https://msdn.microsoft.com/en-us/library/hh670605.aspx
+https://community.dynamics.com/crm/f/117/t/185466
+
+*** DONE how to add parent-children web form, insert parent entity first, after parent entity is submit, insert a list of child enitity
+    CLOSED: [2018-04-02 Mon 08:22]
+**** https://community.dynamics.com/crm/f/117/t/234238
+**** https://community.adxstudio.com/products/adxstudio-portals/documentation/configuration-guide/entity-form/entity-form-subgrid-configuration/
+***** Changes in Customizations
+****** Create parent-child relationship
+****** Edit parent entity's Main Form , add sub grid, SELECT A VIEW in VIEW SELECTOR
+***** changes in CRM Portal settings
+****** add a entity form for child entity
+****** add a enitty from for parent entity, 
+******* set Mode to 'edit' or readonly, source set to query string
+******* add new Entity Form Metadata, select the subgrid name,
+******* in subgride configuration, set 'add action' to child entity form
+****** add a webform, last step redirect to parent entity from, pass the id to query string.
+***** Change in web pages
+****** add a page for create parent entity, select the webform.
+****** add a page for create child entities, select the parent entity from.
+
+
+

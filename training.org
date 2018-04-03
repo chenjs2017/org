@@ -30,7 +30,20 @@ Hold maximum window key, choose left or right screen
 *** WebClient vs HttpClient vs HttpWebRequest
 	http://www.diogonunes.com/blog/webclient-vs-httpclient-vs-httpwebrequest/
 
-* Emacs*
+*** Assembly and Type
+public void PrintAssemblyAndTypes(string asmPath)
+{
+    var assembly = Assembly.LoadFile(asmPath);
+    string[] props = assembly.GetName().FullName.Split(",=".ToCharArray(), StringSplitOptions.RemoveEmptyEntries);
+
+    var type = typeof(IPlugin);
+    var pluginArr = assembly.GetTypes().Where(p => type.IsAssignableFrom(p ));
+    foreach(var plugin in pluginArr)
+    {
+        Console.WriteLine(plugin.Name);
+    }
+}
+* Emacs
 ** common tips:
 *** rectangle select c+x , then press SPC
 *** cut, past copy
@@ -53,7 +66,8 @@ Hold maximum window key, choose left or right screen
 (setq inhibit-splash-screen t)
 
 ** org
-*** Headlines - Outline mode
+*** linewrapping in org: M-X toggle-truncate-lines
+***  Headlines - Outline mode
 **** Tab: 	Local visibility cycling
 **** Shift-Tab: Global Visibility Cycling
 **** m-<right>:	Increase level
@@ -62,7 +76,7 @@ Hold maximum window key, choose left or right screen
 **** Alt-<down>:Move down within a level
 **** C-c ,c-w:	Cut a headline
 **** C-c, C-c: Active the setting line
-*** Schedule, deadline & agenda view
+***  Schedule, deadline & agenda view
 **** add a schedule, ctrl-c ctrl-s
 **** add a deadline, ctrl-c ctrl-d
 **** switch to agenda view M-x, org-agenda
