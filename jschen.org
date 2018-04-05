@@ -1,4 +1,9 @@
 #+SEQ_TODO:   NEXT(n) TODO(t) WAITING(w) SOMEDAY(s) PROJ(p) | DONE(d) CANCELLED(c)
+* Trial Simple Commerce
+Sign-in page
+https://portal.office.com/
+Your user ID
+jack@jackchen.onmicrosoft.com/Dynamic2018
 * Membership Invoice
 ** User Input their information for register
 ** Administrator can see the register information, and select discount
@@ -151,19 +156,20 @@ https://docs.microsoft.com/en-us/dynamics365/customer-engagement/admin/backup-re
 *** https://developer.paypal.com/docs/api/invoicing/#invoices_qr_code
 *** https://docs.microsoft.com/en-us/dynamics365/customer-engagement/admin/connect-exchange-server-on-premises
 *** https://developer.paypal.com/docs/integration/direct/invoicing/
-** to investigate
-*** DONE how to use oData
+* to investigate
+** DONE how to use oData
     CLOSED: [2018-04-02 Mon 08:22]
 **** http://abhinavranjan.xyz/2017/08/22/using-entity-list-as-odata-feed-dynamics-365-portal/
 **** filter odatavar oDataUrl = "/_odata/ContactSet?$filter=parentcustomerid eq guid'" + selectedAccountId + "'";
 
-*** how to update add-in by sdk
+** DONE how to update add-in by sdk
+    CLOSED: [2018-04-05 Thu 16:30]
 https://www.magnetismsolutions.com/blog/gayanperera/2016/03/03/register-crm-2016-plugins-and-steps-programmatically
-*** how to add/delete delete job by sdk
+** how to add/delete delete job by sdk
 https://msdn.microsoft.com/en-us/library/hh670605.aspx
 https://community.dynamics.com/crm/f/117/t/185466
 
-*** DONE how to add parent-children web form, insert parent entity first, after parent entity is submit, insert a list of child enitity
+** DONE how to add parent-children web form, insert parent entity first, after parent entity is submit, insert a list of child enitity
     CLOSED: [2018-04-02 Mon 08:22]
 **** https://community.dynamics.com/crm/f/117/t/234238
 **** https://community.adxstudio.com/products/adxstudio-portals/documentation/configuration-guide/entity-form/entity-form-subgrid-configuration/
@@ -180,6 +186,10 @@ https://community.dynamics.com/crm/f/117/t/185466
 ***** Change in web pages
 ****** add a page for create parent entity, select the webform.
 ****** add a page for create child entities, select the parent entity from.
+** DONE how to do configuration migration
+   CLOSED: [2018-04-05 Thu 16:31]
+*** in Dynamics CRM : add a solution, add all the entity you want to export to that solution, export that solution, import that solution in new Dynamics CRM
+*** User 'CRM Configuration Migration', first export schema, then export data. Useful data (Web Form, Web Form Steps), then edit data.xml in the zip, copy the data.xml back to the zip, then import the data
 
 
 
