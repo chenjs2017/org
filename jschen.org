@@ -1,9 +1,34 @@
-* Trial Simple Commerce
-Sign-in page
-https://portal.office.com/
-Your user ID
-jack@jackchen.onmicrosoft.com/Dynamic2018
-* Membership Invoice
+* Trial 
+https://trials.dynamics.com/Dynamics365/Signup/#
+jack@jackc1.onmicrosoft.com Dynamic2018
+
+jack@jackc2.onmicrosoft.com
+
+* Funeral App
+** 2 hours: Create 2 entities in CRM, funeral(parent entity) and attendee(child enitty) 
+** for attendee, don't need login
+*** 4 hours: Ceate a web page, list all the open funeral, if (required attendee > joined attendee),there is a link to join
+*** 2 hours:  attendee select a funeral, registers to attend, 
+
+** for admin, login in to portal
+*** 2 hours Create,update,delete funeral page
+*** 2 hours Create, update, delete attendee page
+** To do 4/25:
+*** For Funeral Services, add more field: Title, Description, Date of ceremoeny, Begin time, End time,Max Count,  Requried Count, Current Count(Count of children)
+*** For Funeral Service Individuals, add more field : Name, Email, Phone Number, Notes.
+*** In the funeral Services Page, display Title, Date, Begin Time, End Time, Required Count, Current Count,Max Count
+*** In the funeral Info Page, 
+**** Dispaly Funeral Title, Descrption,  Date, Begin Time, End Time, Required Count, Current Count,Max Count. 
+**** In the list, display Name, Cellphone, Email.
+**** if current count == Max Count, Hide the 'Add' button
+*** In the New Funeral Individual Page, User can input Name, Phone Number, Email, Notes.
+*** Create Pages for Admin, Admin can Manage Funeral and Individual
+*** Configure Access Control Rules for admin pages.
+ 
+** Change delete to De-Active, then if Status=inactive, then min -event.count, else plus event.count:q
+* ateresyaakov Dinner , certify account for ateresyaakov
+i jack p Dynamic2018!
+* zimmit Membership Invoice
 ** User Input their information for register
 ** Administrator can see the register information, and select discount
 ** Sned paypal invoice to customer, either
@@ -183,6 +208,70 @@ https://github.com/quartznet
 2 days  0 days,  it hard to say if there would be changes...
 
 *** So I need 5 days to deliver the first executable.
+* Dynamic Nav Payment
+** To Deploy Nav Extension
+*** Install Nav 2018, otherwise SignTool doesn't recognize .app file format
+*** Create pfx file
+**** Open powershell as administrator, run command ' MakeCert -sk myNewKey -n "CN=HartogJacobs" -r -ss my MyCert.pfx'
+*** Copy myCert to developing directory, 
+*** Open 'Developer command Prompt', run ' SignTool sign /f MyCert.pfx /t http://timestamp.verisign.com/scripts/timestamp.dll HartogJacobs_ALInvoice_1.0.0.0.app '
+
+** References: 
+How to customize report layout 
+https://docs.microsoft.com/en-us/dynamics365/financials/ui-how-change-layout-currently-used-report 
+How to get invoice date from outside of Dynamic Financials 
+https://www.interdynartis.com/blog/use-the-dynamics-365-for-financials-odata-service 
+https://msdn.microsoft.com/en-us/library/dd355316(v=nav.90).aspx 
+strip API 
+https://stripe.com/docs/api/dotnet#metadata 
+invoice send to customer: 
+https://stripe.com/docs/subscriptions/invoicing#invoices-sent-to-customers 
+* Microsoft Partner Center 
+** PowerShell https://docs.microsoft.com/en-us/office365/enterprise/powershell/manage-office-365-tenants-with-windows-powershell-for-delegated-access-permissio
+** Install required software && Connect 
+https://docs.microsoft.com/en-us/office365/enterprise/powershell/connect-to-office-365-powershell#step-1-install-required-software
+>$UserCredential = Get-Credential
+>Connect-MsolService -Credential $UserCredential
+
+** Using PSCredentials without a prompt
+https://blogs.msdn.microsoft.com/koteshb/2010/02/12/powershell-how-to-create-a-pscredential-object
+https://stackoverflow.com/questions/6239647/using-powershell-credentials-without-being-prompted-for-a-password
+>Install-Package System.Management.Automation -Version 6.1.7601.17515
+
+** Build a http server via powershell 
+https://gist.github.com/Tiberriver256/e37a32facfd2f506fa79dbd76f1169c7
+https://4sysops.com/archives/building-a-web-server-with-powershell/
+https://gist.github.com/19WAS85/5424431
+
+
+** DONE 1.	To find accurate count of the number of users in customer organizations. 
+   CLOSED: [2018-05-02 Wed 15:10]
+$Tenants = Get-MsolPartnerContract -All; $Tenants | foreach {$Domains = $_.TenantId; Get-MsolDomain -TenantId $Domains | fl @{Label="TenantId";Expression={$Domains}},name}
+Get-MsolUser -TenantID 8bd2738c-30d4-47fa-bf42-48f614c95691
+
+** DONE 2.	Assign different licenses to the users of customer organization. 
+   CLOSED: [2018-05-02 Wed 16:33]
+set the location first
+Set-MsolUser -UserPrincipalName "test@zhealthcare.com" -UsageLocation US -TenantID 8bd2738c-30d4-47fa-bf42-48f614c95691
+
+Set-MsolUserLicense -UserPrincipalName "test@zhealthcare.com"   -TenantID 8bd2738c-30d4-47fa-bf42-48f614c95691  -AddLicenses "zimmet:EXCHANGESTANDARD"
+
+** DONE 3.	To find the details of number of licenses consumed by the respective customers organization. 
+   CLOSED: [2018-05-02 Wed 16:33]
+Get-MsolSubscription  -TenantID 8bd2738c-30d4-47fa-bf42-48f614c95691
+Get-MsolAccountSku  -TenantID 8bd2738c-30d4-47fa-bf42-48f614c95691
+
+** DONE 4.	To be able to reset passwords for your customer organization users. 
+   CLOSED: [2018-05-02 Wed 15:10]
+New-MsolUser -UserPrincipalName test@zhealthcare.com -DisplayName TEST  -TenantID 8bd2738c-30d4-47fa-bf42-48f614c95691
+Set-MsolUserPassword -UserPrincipalName "test@zhealthcare.com" -ForceChangePassword
+Set-MsolUserPassword -UserPrincipalName "test@zhealthcare.com" -NewPassword "pa$$word"
+
+5.	Accessing Billing Profile, and to be able to get details of how much the respective customers need to be billed for.
+
+
+** REST API(No permission) https://docs.microsoft.com/en-us/partner-center/develop/partner-center-rest-api-reference
+** Login address https://partnercenter.microsoft.com/en-us/pc/ContentManagementService/NotificationCenter
 
 * To investigate
 ** how to post data? 
@@ -200,6 +289,40 @@ https://app.pluralsight.com/player?course=developing-dotnet-microsoft-azure-gett
 *** the price, identification,
 ** Dynamic Examples
 https://docs.microsoft.com/en-us/dynamics365/customer-engagement/developer/sample-code-directory
+
+** call an workflow or action from Javascript
+https://community.dynamics.com/crm/b/microsoftdynamicscrmandstuff/archive/2016/01/13/web-api-executing-custom-action-via-javascript
+
+** How to run the custom code in Dynamics 365 Portal,also a way of implement of webhook
+https://community.dynamics.com/enterprise/b/udsconsultingblog/archive/2017/04/18/https-uds-systems-blog
+
+request.params is a combination of get, post, cookie
+{% assign query = request.params['action'] %}
+query = {{query}}
+
+curl --data action=ff https://whiteshul.microsoftcrmportals.com/post-test/
+
+** DONE How to make a dynamics app
+   CLOSED: [2018-05-01 Tue 11:07]
+https://docs.microsoft.com/en-us/dynamics365/customer-engagement/customize/design-custom-business-apps-using-app-designer
+
+** DONE diffrence between : Business Process Flow, Work Flow, Action, Dialog
+   CLOSED: [2018-05-01 Tue 11:06]
+*** Action, can be called from workflow, javascript
+*** Workflow, trigger automatically, can call plugin, action
+*** Business Process Flow, finish steps, then go to next stage
+https://docs.microsoft.com/en-us/dynamics365/customer-engagement/customize/create-business-process-flow
+
+*** Dialog are derpecated,
+** DONE Add a button to command bar
+   CLOSED: [2018-04-30 Mon 16:38]
+https://community.dynamics.com/crm/b/crmtipsfromadeveloper/archive/2017/07/26/know-how-add-a-ribbon-button-using-ribbon-workbench
+https://ribbonworkbench.uservoice.com/knowledgebase/articles/358664-create-a-command-bar-button-for-your-custom-acitiv
+https://ribbonworkbench.uservoice.com/knowledgebase/articles/71374-1-getting-started-with-the-ribbon-workbench
+
+** DONE .NET tasks
+   CLOSED: [2018-04-30 Mon 08:46]
+https://docs.microsoft.com/en-us/dotnet/standard/parallel-programming/index
 ** DONE a example SPA + .Net Web API + corss-origin resource sharing + CRM Web API
    CLOSED: [2018-04-11 Wed 14:59]
 https://jlattimer.blogspot.com/2014/05/simple-crm-lead-capture-using-azure-web.html
@@ -251,4 +374,8 @@ https://www.magnetismsolutions.com/blog/gayanperera/2016/03/03/register-crm-2016
 **** filter odatavar oDataUrl = "/_odata/ContactSet?$filter=parentcustomerid eq guid'" + selectedAccountId + "'";
 
 **** user liquid https://community.dynamics.com/enterprise/b/colinvermandermicrosoft/archive/2017/04/17/dynamics-365-portals-use-liquid-to-return-json-or-xml
+
+
+
+
 
