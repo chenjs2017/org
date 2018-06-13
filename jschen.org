@@ -1,9 +1,104 @@
-* Trial 
-https://trials.dynamics.com/Dynamics365/Signup/#
-jack@jackc1.onmicrosoft.com Dynamic2018
+* Help desktop
+** how to test
+1. send to jack@hartogjacbos.com , put 'support' in the portal
+2. from outlook, replay the mail, cc jack@hartogjacobs.com
 
-jack@jackc2.onmicrosoft.com
 
+* Liberty X ray
+** todo 6/6/2018
+*** for the unit, select it's facility 
+*** add a link of 'New exam order' to the '+' button, no help, it's only quck create
+*** DONE Insurance can be delete when patient is deleted
+    CLOSED: [2018-06-07 Thu 10:51]
+*** DONE only list the insurance belongs to the patient
+    CLOSED: [2018-06-07 Thu 10:51]
+
+*** after input last name, save the patient
+
+*** DONE after click save, don't alert,close directly
+    CLOSED: [2018-06-07 Thu 10:52]
+*** DONE a better naming for 'save' in person ordering/patient/physician form
+    CLOSED: [2018-06-07 Thu 10:52]
+*** DONE add a link to see exists person ordering / Patient / Physician
+    CLOSED: [2018-06-07 Thu 10:52]
+*** check patient has at least one insureance
+
+** feedback 6/5/2018
+*** DONE button for new Person Ordering / Patient / Ordering physician, open the corrspont form, when close set the lookup field value
+    CLOSED: [2018-06-06 Wed 16:45]
+*** DONE put add exam order to the dashboard, or in the add button
+    CLOSED: [2018-06-06 Wed 16:42]
+*** DONE when select a person, automatically set the person's insurance
+    CLOSED: [2018-06-05 Tue 13:39]
+*** DONE one person has multiple insurance
+    CLOSED: [2018-06-05 Tue 13:40]
+*** DONE insurance start date and end date are not required
+    CLOSED: [2018-06-05 Tue 13:40]
+*** DONE account type has facility
+    CLOSED: [2018-06-05 Tue 11:16]
+** refrence
+get message from the popup window
+https://medium.com/@bluepnume/every-known-way-to-get-references-to-windows-in-javascript-223778bede2d
+
+* Power Apps
+** functions:
+*** classroom.Items = 
+Filter(Classrooms, statecode=0)
+*** classtime.Items = 
+SortByColumns(Filter('Class Times',statecode=0), "hj_name",Ascending)
+*** attendance.Items = 
+SortByColumns(
+    AddColumns(
+        Filter(
+            Students, statecode=0 
+            && hj_studentid in (
+                Filter ('Class Students', _hj_classroomid_value = ComboBoxClassroom.Selected.hj_classroomid)._hj_studentid_value)
+        ),
+        "attendance",
+        LookUp('Class Attendances',
+            _hj_studentid_value = hj_studentid 
+            && _hj_classroomid_value= ComboBoxClassroom.Selected.hj_classroomid
+            && _hj_timeid_value = DropdownTime.Selected.hj_classtimeid
+            && hj_date = DatePickerClassDate.SelectedDate
+        )
+    ),
+    "hj_lastname", 
+    If(SortDescending1, Descending, Ascending)
+)
+
+*** Save.OnSelect = 
+ForAll ( 
+    BrowseGalleryStudent.AllItems, 
+    Patch ('Class Attendances',Defaults('Class Attendances'),
+          {_hj_studentid_value: hj_studentid,
+            _hj_classroomid_value:ComboBoxClassroom.Selected.hj_classroomid,
+            hj_in: CheckboxIn.Value, 
+            hj_date : DatePickerClassDate.SelectedDate,
+            _hj_timeid_value: DropdownTime.Selected.hj_classtimeid,
+            hj_name:TextInputNotes.Text}
+))
+** bulk insert
+https://powerapps.microsoft.com/en-us/blog/bulk-update-using-forall-and-patch/
+
+** early steps
+https://earlystepsmgmt.crm.dynamics.com
+* Dynamics field service and scheduling
+** installation
+*** install glimpse integration for field service
+https://appsource.microsoft.com/en-us/product/dynamics-365/mscrm.a69c2dde-7c72-4f4b-8d28-1798a57ca92a?tab=Overview
+*** install Woodford
+http://www.xrmcoaches.com/2017/09/lessons-learned-installing-dynamics-365-field-service-mobile-app/
+*** mavogate to woodford solution, input good api key AIzaSyD3-pLV4pFnW-szwwlnbZtt5Lodse1bcEw 
+*** navigate to setting woodford project, go to auditing, 'Track GPS position changes', publish all
+*** navigate to 'Resource Scheduling'/ 'Administration'/ 'Scheduling Parameters'/ 'Connect to Maps' to enable connection.
+*** to veryify if woodford project is installed successfully, 
+**** go to Resource scheduling, create a Resource of User, enable glimps for the user
+**** go to Field Service > workorder to create a work order, book the order to the user
+**** login to Field Service App, Synchonize, 
+***( from the Schedule Board can see the user's location
+
+** refrences
+https://www.powerobjects.com/2017/04/18/schedule-anything-in-3-easy-steps-with-dynamics-365/
 * Funeral App
 ** 2 hours: Create 2 entities in CRM, funeral(parent entity) and attendee(child enitty) 
 ** for attendee, don't need login
@@ -26,6 +121,168 @@ jack@jackc2.onmicrosoft.com
 *** Configure Access Control Rules for admin pages.
  
 ** Change delete to De-Active, then if Status=inactive, then min -event.count, else plus event.count:q
+* Microsoft Partner Center 
+** https configuration
+*** create cert viw IIS
+https://www.youtube.com/watch?v=MFikeLC-Ed4
+*** bind with powershell
+$guid = [guid]::NewGuid()
+$certHash = "89C38E9AD6455F9A8782DD29CE089074C57311ED" 
+#Manage computer certificates, see cert's thumbprint
+$ip = "0.0.0.0" # This means all IP addresses
+$port = "443" # the default HTTPS port
+"http add sslcert ipport=$($ip):$port certhash=$certHash appid={$guid}" | netsh
+
+** PowerShell https://docs.microsoft.com/en-us/office365/enterprise/powershell/manage-office-365-tenants-with-windows-powershell-for-delegated-access-permissio
+** Install required software && Connect 
+https://docs.microsoft.com/en-us/office365/enterprise/powershell/connect-to-office-365-powershell#step-1-install-required-software
+>$UserCredential = Get-Credential
+>Connect-MsolService -Credential $UserCredential
+
+** Using PSCredentials without a prompt
+read-host -assecurestring | convertfrom-securestring | out-file mysecurestring.txt
+
+https://blogs.msdn.microsoft.com/koteshb/2010/02/12/powershell-how-to-create-a-pscredential-object
+https://stackoverflow.com/questions/6239647/using-powershell-credentials-without-being-prompted-for-a-password
+>Install-Package System.Management.Automation -Version 6.1.7601.17515
+
+** Build a http server via powershell 
+https://stackoverflow.com/questions/11403333/httplistener-with-https-support
+https://gist.github.com/Tiberriver256/e37a32facfd2f506fa79dbd76f1169c7
+https://4sysops.com/archives/building-a-web-server-with-powershell/
+https://gist.github.com/19WAS85/5424431
+
+
+** DONE 1.	To find accurate count of the number of users in customer organizations. 
+   CLOSED: [2018-05-02 Wed 15:10]
+$Tenants = Get-MsolPartnerContract -All; $Tenants | foreach {$Domains = $_.TenantId; Get-MsolDomain -TenantId $Domains | fl @{Label="TenantId";Expression={$Domains}},name}
+Get-MsolUser -TenantID 8bd2738c-30d4-47fa-bf42-48f614c95691
+
+** DONE 2.	Assign different licenses to the users of customer organization. 
+   CLOSED: [2018-05-02 Wed 16:33]
+set the location first
+Set-MsolUser -UserPrincipalName "test@zhealthcare.com" -UsageLocation US -TenantID 8bd2738c-30d4-47fa-bf42-48f614c95691
+
+Set-MsolUserLicense -UserPrincipalName "test@zhealthcare.com"   -TenantID 8bd2738c-30d4-47fa-bf42-48f614c95691  -AddLicenses "zimmet:EXCHANGESTANDARD"
+
+** DONE 3.	To find the details of number of licenses consumed by the respective customers organization. 
+   CLOSED: [2018-05-02 Wed 16:33]
+Get-MsolSubscription  -TenantID 8bd2738c-30d4-47fa-bf42-48f614c95691
+Get-MsolAccountSku  -TenantID 8bd2738c-30d4-47fa-bf42-48f614c95691
+
+** DONE 4.	To be able to reset passwords for your customer organization users. 
+   CLOSED: [2018-05-02 Wed 15:10]
+New-MsolUser -UserPrincipalName test@zhealthcare.com -DisplayName TEST  -TenantID 8bd2738c-30d4-47fa-bf42-48f614c95691
+Set-MsolUserPassword -UserPrincipalName "test@zhealthcare.com" -ForceChangePassword
+Set-MsolUserPassword -UserPrincipalName "test@zhealthcare.com" -NewPassword "pa$$word"
+
+5. Get Maxmum number of Acitve, consume of a month
+6. Accessing Billing Profile, and to be able to get details of how much the respective customers need to be billed for.
+
+
+** REST API(No permission) https://docs.microsoft.com/en-us/partner-center/develop/partner-center-rest-api-reference
+** Login address https://partnercenter.microsoft.com/en-us/pc/ContentManagementService/NotificationCenter
+* To investigate
+** how to post data? 
+*** only save data
+**** an entity form upload json, then add on parse json save to entity
+**** Dynamic crms web  api? Need login in azure tanent,
+*** to handle webhook
+**** a webhook easily with flow
+**** WebAPI hosted on Azure
+**** an azure funciton as a WebHook endpoint
+https://community.dynamics.com/crm/f/117/t/254584
+https://jlattimer.blogspot.com/2014/05/simple-crm-lead-capture-using-azure-web.html
+** Microsoft azure
+https://app.pluralsight.com/player?course=developing-dotnet-microsoft-azure-getting-started&author=scott-allen&name=cf099c18-16b6-4ba0-832e-bade58958f6d&clip=5&mode=live
+*** the price, identification,
+** Dynamic Examples
+https://docs.microsoft.com/en-us/dynamics365/customer-engagement/developer/sample-code-directory
+
+** call an workflow or action from Javascript
+https://community.dynamics.com/crm/b/microsoftdynamicscrmandstuff/archive/2016/01/13/web-api-executing-custom-action-via-javascript
+
+** How to run the custom code in Dynamics 365 Portal,also a way of implement of webhook
+https://community.dynamics.com/enterprise/b/udsconsultingblog/archive/2017/04/18/https-uds-systems-blog
+
+request.params is a combination of get, post, cookie
+{% assign query = request.params['action'] %}
+query = {{query}}
+
+curl --data action=ff https://whiteshul.microsoftcrmportals.com/post-test/
+
+** DONE How to make a dynamics app
+   CLOSED: [2018-05-01 Tue 11:07]
+https://docs.microsoft.com/en-us/dynamics365/customer-engagement/customize/design-custom-business-apps-using-app-designer
+
+** DONE diffrence between : Business Process Flow, Work Flow, Action, Dialog
+   CLOSED: [2018-05-01 Tue 11:06]
+*** Action, can be called from workflow, javascript
+*** Workflow, trigger automatically, can call plugin, action
+*** Business Process Flow, finish steps, then go to next stage
+https://docs.microsoft.com/en-us/dynamics365/customer-engagement/customize/create-business-process-flow
+
+*** Dialog are derpecated,
+** DONE Add a button to command bar
+   CLOSED: [2018-04-30 Mon 16:38]
+https://community.dynamics.com/crm/b/crmtipsfromadeveloper/archive/2017/07/26/know-how-add-a-ribbon-button-using-ribbon-workbench
+https://ribbonworkbench.uservoice.com/knowledgebase/articles/358664-create-a-command-bar-button-for-your-custom-acitiv
+https://ribbonworkbench.uservoice.com/knowledgebase/articles/71374-1-getting-started-with-the-ribbon-workbench
+
+** DONE .NET tasks
+   CLOSED: [2018-04-30 Mon 08:46]
+https://docs.microsoft.com/en-us/dotnet/standard/parallel-programming/index
+** DONE a example SPA + .Net Web API + corss-origin resource sharing + CRM Web API
+   CLOSED: [2018-04-11 Wed 14:59]
+https://jlattimer.blogspot.com/2014/05/simple-crm-lead-capture-using-azure-web.html
+Nuget Settings: Microsoft.Xrm.Sdk.2016 / Microsoft.Xrm.Client.2011
+** DONE how to add parent-children web form, insert parent entity first, after parent entity is submit, insert a list of child enitity
+    CLOSED: [2018-04-02 Mon 08:22]
+**** https://community.dynamics.com/crm/f/117/t/234238
+**** https://community.adxstudio.com/products/adxstudio-portals/documentation/configuration-guide/entity-form/entity-form-subgrid-configuration/
+***** Changes in Customizations
+****** Create parent-child relationship
+****** Edit parent entity's Main Form , add sub grid, SELECT A VIEW in VIEW SELECTOR
+***** changes in CRM Portal settings
+****** add a entity form for child entity
+****** add a enitty from for parent entity, 
+******* set Mode to 'edit' or readonly, source set to query string
+******* add new Entity Form Metadata, select the subgrid name,
+******* in subgride configuration, set 'add action' to child entity form
+****** add a webform, last step redirect to parent entity from, pass the id to query string.
+***** Change in web pages
+****** add a page for create parent entity, select the webform.
+****** add a page for create child entities, select the parent entity from.
+** DONE how to do configuration migration
+   CLOSED: [2018-04-05 Thu 16:31]
+*** in Dynamics CRM : add a solution, add all the entity you want to export to that solution, export that solution, import that solution in new Dynamics CRM
+*** User 'CRM Configuration Migration', first export schema, then export data. Useful data (Web Form, Web Form Steps), then edit data.xml in the zip, copy the data.xml back to the zip, then import the data
+** DONE oData && angular js
+   CLOSED: [2018-04-06 Fri 20:03]
+*** enble javascript
+ Settings > Administration, then select System Settings. On the General tab find the Set blocked file extensions for attachments
+*** how to full support angular js, support {{}}, use angular-route, partial html
+https://www.youtube.com/watch?v=ZbRCSCjCxBg&list=PLzpMMGE0rxPkenSURlthkctgKrPhMy9Jy&index=27
+** DONE study CRM webapi
+   CLOSED: [2018-04-07 Sat 21:25]
+*** if the .js is run in Dynamics Web resource, no authorization is required, jquery to CRUD
+https://msdn.microsoft.com/en-us/library/gg309549(v=crm.7).aspx
+*** if the .js is run in spa, Cross-orign resouce sharing
+https://msdn.microsoft.com/en-us/library/mt595799.aspx
+** DONE how to add/delete delete job by sdk
+   CLOSED: [2018-04-11 Wed 14:58]
+https://msdn.microsoft.com/en-us/library/hh670605.aspx
+https://community.dynamics.com/crm/f/117/t/185466
+added a method to crm Utility
+** DONE how to update add-in by sdk
+    CLOSED: [2018-04-05 Thu 16:30]
+https://www.magnetismsolutions.com/blog/gayanperera/2016/03/03/register-crm-2016-plugins-and-steps-programmatically
+** DONE how to use oData
+    CLOSED: [2018-04-02 Mon 08:22]
+**** http://abhinavranjan.xyz/2017/08/22/using-entity-list-as-odata-feed-dynamics-365-portal/
+**** filter odatavar oDataUrl = "/_odata/ContactSet?$filter=parentcustomerid eq guid'" + selectedAccountId + "'";
+
+**** user liquid https://community.dynamics.com/enterprise/b/colinvermandermicrosoft/archive/2017/04/17/dynamics-365-portals-use-liquid-to-return-json-or-xml
 * ateresyaakov Dinner , certify account for ateresyaakov
 i jack p Dynamic2018!
 * zimmit Membership Invoice
@@ -180,6 +437,24 @@ The Zimmet Team
 *** https://developer.paypal.com/docs/api/invoicing/#invoices_qr_code
 *** https://docs.microsoft.com/en-us/dynamics365/customer-engagement/admin/connect-exchange-server-on-premises
 *** https://developer.paypal.com/docs/integration/direct/invoicing/
+* Dynamic Nav Payment
+** To Deploy Nav Extension
+*** Install Nav 2018, otherwise SignTool doesn't recognize .app file format
+*** Create pfx file
+**** Open powershell as administrator, run command ' MakeCert -sk myNewKey -n "CN=HartogJacobs" -r -ss my MyCert.pfx'
+*** Copy myCert to developing directory, 
+*** Open 'Developer command Prompt', run ' SignTool sign /f MyCert.pfx /t http://timestamp.verisign.com/scripts/timestamp.dll HartogJacobs_ALInvoice_1.0.0.0.app '
+
+** References: 
+How to customize report layout 
+https://docs.microsoft.com/en-us/dynamics365/financials/ui-how-change-layout-currently-used-report 
+How to get invoice date from outside of Dynamic Financials 
+https://www.interdynartis.com/blog/use-the-dynamics-365-for-financials-odata-service 
+https://msdn.microsoft.com/en-us/library/dd355316(v=nav.90).aspx 
+strip API 
+https://stripe.com/docs/api/dotnet#metadata 
+invoice send to customer: 
+https://stripe.com/docs/subscriptions/invoicing#invoices-sent-to-customers 
 * Quick Books and Dynamics business central
 ** Invoices generated in dynamics for financials to trigger an invoice creation in Quickbooks Online
 *** advance example
@@ -208,172 +483,11 @@ https://github.com/quartznet
 2 days  0 days,  it hard to say if there would be changes...
 
 *** So I need 5 days to deliver the first executable.
-* Dynamic Nav Payment
-** To Deploy Nav Extension
-*** Install Nav 2018, otherwise SignTool doesn't recognize .app file format
-*** Create pfx file
-**** Open powershell as administrator, run command ' MakeCert -sk myNewKey -n "CN=HartogJacobs" -r -ss my MyCert.pfx'
-*** Copy myCert to developing directory, 
-*** Open 'Developer command Prompt', run ' SignTool sign /f MyCert.pfx /t http://timestamp.verisign.com/scripts/timestamp.dll HartogJacobs_ALInvoice_1.0.0.0.app '
+* Trial 
+https://trials.dynamics.com/Dynamics365/Signup/#
+jack@jackc1.onmicrosoft.com Dynamic2018
 
-** References: 
-How to customize report layout 
-https://docs.microsoft.com/en-us/dynamics365/financials/ui-how-change-layout-currently-used-report 
-How to get invoice date from outside of Dynamic Financials 
-https://www.interdynartis.com/blog/use-the-dynamics-365-for-financials-odata-service 
-https://msdn.microsoft.com/en-us/library/dd355316(v=nav.90).aspx 
-strip API 
-https://stripe.com/docs/api/dotnet#metadata 
-invoice send to customer: 
-https://stripe.com/docs/subscriptions/invoicing#invoices-sent-to-customers 
-* Microsoft Partner Center 
-** PowerShell https://docs.microsoft.com/en-us/office365/enterprise/powershell/manage-office-365-tenants-with-windows-powershell-for-delegated-access-permissio
-** Install required software && Connect 
-https://docs.microsoft.com/en-us/office365/enterprise/powershell/connect-to-office-365-powershell#step-1-install-required-software
->$UserCredential = Get-Credential
->Connect-MsolService -Credential $UserCredential
-
-** Using PSCredentials without a prompt
-https://blogs.msdn.microsoft.com/koteshb/2010/02/12/powershell-how-to-create-a-pscredential-object
-https://stackoverflow.com/questions/6239647/using-powershell-credentials-without-being-prompted-for-a-password
->Install-Package System.Management.Automation -Version 6.1.7601.17515
-
-** Build a http server via powershell 
-https://gist.github.com/Tiberriver256/e37a32facfd2f506fa79dbd76f1169c7
-https://4sysops.com/archives/building-a-web-server-with-powershell/
-https://gist.github.com/19WAS85/5424431
-
-
-** DONE 1.	To find accurate count of the number of users in customer organizations. 
-   CLOSED: [2018-05-02 Wed 15:10]
-$Tenants = Get-MsolPartnerContract -All; $Tenants | foreach {$Domains = $_.TenantId; Get-MsolDomain -TenantId $Domains | fl @{Label="TenantId";Expression={$Domains}},name}
-Get-MsolUser -TenantID 8bd2738c-30d4-47fa-bf42-48f614c95691
-
-** DONE 2.	Assign different licenses to the users of customer organization. 
-   CLOSED: [2018-05-02 Wed 16:33]
-set the location first
-Set-MsolUser -UserPrincipalName "test@zhealthcare.com" -UsageLocation US -TenantID 8bd2738c-30d4-47fa-bf42-48f614c95691
-
-Set-MsolUserLicense -UserPrincipalName "test@zhealthcare.com"   -TenantID 8bd2738c-30d4-47fa-bf42-48f614c95691  -AddLicenses "zimmet:EXCHANGESTANDARD"
-
-** DONE 3.	To find the details of number of licenses consumed by the respective customers organization. 
-   CLOSED: [2018-05-02 Wed 16:33]
-Get-MsolSubscription  -TenantID 8bd2738c-30d4-47fa-bf42-48f614c95691
-Get-MsolAccountSku  -TenantID 8bd2738c-30d4-47fa-bf42-48f614c95691
-
-** DONE 4.	To be able to reset passwords for your customer organization users. 
-   CLOSED: [2018-05-02 Wed 15:10]
-New-MsolUser -UserPrincipalName test@zhealthcare.com -DisplayName TEST  -TenantID 8bd2738c-30d4-47fa-bf42-48f614c95691
-Set-MsolUserPassword -UserPrincipalName "test@zhealthcare.com" -ForceChangePassword
-Set-MsolUserPassword -UserPrincipalName "test@zhealthcare.com" -NewPassword "pa$$word"
-
-5.	Accessing Billing Profile, and to be able to get details of how much the respective customers need to be billed for.
-
-
-** REST API(No permission) https://docs.microsoft.com/en-us/partner-center/develop/partner-center-rest-api-reference
-** Login address https://partnercenter.microsoft.com/en-us/pc/ContentManagementService/NotificationCenter
-
-* To investigate
-** how to post data? 
-*** only save data
-**** an entity form upload json, then add on parse json save to entity
-**** Dynamic crms web  api? Need login in azure tanent,
-*** to handle webhook
-**** a webhook easily with flow
-**** WebAPI hosted on Azure
-**** an azure funciton as a WebHook endpoint
-https://community.dynamics.com/crm/f/117/t/254584
-https://jlattimer.blogspot.com/2014/05/simple-crm-lead-capture-using-azure-web.html
-** Microsoft azure
-https://app.pluralsight.com/player?course=developing-dotnet-microsoft-azure-getting-started&author=scott-allen&name=cf099c18-16b6-4ba0-832e-bade58958f6d&clip=5&mode=live
-*** the price, identification,
-** Dynamic Examples
-https://docs.microsoft.com/en-us/dynamics365/customer-engagement/developer/sample-code-directory
-
-** call an workflow or action from Javascript
-https://community.dynamics.com/crm/b/microsoftdynamicscrmandstuff/archive/2016/01/13/web-api-executing-custom-action-via-javascript
-
-** How to run the custom code in Dynamics 365 Portal,also a way of implement of webhook
-https://community.dynamics.com/enterprise/b/udsconsultingblog/archive/2017/04/18/https-uds-systems-blog
-
-request.params is a combination of get, post, cookie
-{% assign query = request.params['action'] %}
-query = {{query}}
-
-curl --data action=ff https://whiteshul.microsoftcrmportals.com/post-test/
-
-** DONE How to make a dynamics app
-   CLOSED: [2018-05-01 Tue 11:07]
-https://docs.microsoft.com/en-us/dynamics365/customer-engagement/customize/design-custom-business-apps-using-app-designer
-
-** DONE diffrence between : Business Process Flow, Work Flow, Action, Dialog
-   CLOSED: [2018-05-01 Tue 11:06]
-*** Action, can be called from workflow, javascript
-*** Workflow, trigger automatically, can call plugin, action
-*** Business Process Flow, finish steps, then go to next stage
-https://docs.microsoft.com/en-us/dynamics365/customer-engagement/customize/create-business-process-flow
-
-*** Dialog are derpecated,
-** DONE Add a button to command bar
-   CLOSED: [2018-04-30 Mon 16:38]
-https://community.dynamics.com/crm/b/crmtipsfromadeveloper/archive/2017/07/26/know-how-add-a-ribbon-button-using-ribbon-workbench
-https://ribbonworkbench.uservoice.com/knowledgebase/articles/358664-create-a-command-bar-button-for-your-custom-acitiv
-https://ribbonworkbench.uservoice.com/knowledgebase/articles/71374-1-getting-started-with-the-ribbon-workbench
-
-** DONE .NET tasks
-   CLOSED: [2018-04-30 Mon 08:46]
-https://docs.microsoft.com/en-us/dotnet/standard/parallel-programming/index
-** DONE a example SPA + .Net Web API + corss-origin resource sharing + CRM Web API
-   CLOSED: [2018-04-11 Wed 14:59]
-https://jlattimer.blogspot.com/2014/05/simple-crm-lead-capture-using-azure-web.html
-Nuget Settings: Microsoft.Xrm.Sdk.2016 / Microsoft.Xrm.Client.2011
-** DONE how to add parent-children web form, insert parent entity first, after parent entity is submit, insert a list of child enitity
-    CLOSED: [2018-04-02 Mon 08:22]
-**** https://community.dynamics.com/crm/f/117/t/234238
-**** https://community.adxstudio.com/products/adxstudio-portals/documentation/configuration-guide/entity-form/entity-form-subgrid-configuration/
-***** Changes in Customizations
-****** Create parent-child relationship
-****** Edit parent entity's Main Form , add sub grid, SELECT A VIEW in VIEW SELECTOR
-***** changes in CRM Portal settings
-****** add a entity form for child entity
-****** add a enitty from for parent entity, 
-******* set Mode to 'edit' or readonly, source set to query string
-******* add new Entity Form Metadata, select the subgrid name,
-******* in subgride configuration, set 'add action' to child entity form
-****** add a webform, last step redirect to parent entity from, pass the id to query string.
-***** Change in web pages
-****** add a page for create parent entity, select the webform.
-****** add a page for create child entities, select the parent entity from.
-** DONE how to do configuration migration
-   CLOSED: [2018-04-05 Thu 16:31]
-*** in Dynamics CRM : add a solution, add all the entity you want to export to that solution, export that solution, import that solution in new Dynamics CRM
-*** User 'CRM Configuration Migration', first export schema, then export data. Useful data (Web Form, Web Form Steps), then edit data.xml in the zip, copy the data.xml back to the zip, then import the data
-** DONE oData && angular js
-   CLOSED: [2018-04-06 Fri 20:03]
-*** enble javascript
- Settings > Administration, then select System Settings. On the General tab find the Set blocked file extensions for attachments
-*** how to full support angular js, support {{}}, use angular-route, partial html
-https://www.youtube.com/watch?v=ZbRCSCjCxBg&list=PLzpMMGE0rxPkenSURlthkctgKrPhMy9Jy&index=27
-** DONE study CRM webapi
-   CLOSED: [2018-04-07 Sat 21:25]
-*** if the .js is run in Dynamics Web resource, no authorization is required, jquery to CRUD
-https://msdn.microsoft.com/en-us/library/gg309549(v=crm.7).aspx
-*** if the .js is run in spa, Cross-orign resouce sharing
-https://msdn.microsoft.com/en-us/library/mt595799.aspx
-** DONE how to add/delete delete job by sdk
-   CLOSED: [2018-04-11 Wed 14:58]
-https://msdn.microsoft.com/en-us/library/hh670605.aspx
-https://community.dynamics.com/crm/f/117/t/185466
-added a method to crm Utility
-** DONE how to update add-in by sdk
-    CLOSED: [2018-04-05 Thu 16:30]
-https://www.magnetismsolutions.com/blog/gayanperera/2016/03/03/register-crm-2016-plugins-and-steps-programmatically
-** DONE how to use oData
-    CLOSED: [2018-04-02 Mon 08:22]
-**** http://abhinavranjan.xyz/2017/08/22/using-entity-list-as-odata-feed-dynamics-365-portal/
-**** filter odatavar oDataUrl = "/_odata/ContactSet?$filter=parentcustomerid eq guid'" + selectedAccountId + "'";
-
-**** user liquid https://community.dynamics.com/enterprise/b/colinvermandermicrosoft/archive/2017/04/17/dynamics-365-portals-use-liquid-to-return-json-or-xml
+jack@jackc2.onmicrosoft.com
 
 
 

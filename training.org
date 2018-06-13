@@ -1,4 +1,46 @@
 #+SEQ_TODO: NEXT(n) TODO(t) WAITING(w) PROJ(p) | DONE(d) CANCELLED(c)
+* SimplePress
+** docker
+*** You can run Postgres this way (map a port):
+docker run --name simplepress -e POSTGRES_PASSWORD=Chenjs123! -d -p 5432:5432 postgres
+
+
+*** connect 
+psql -h 127.0.0.1 -p 5432 -U postgres
+** connet to AWS
+bash
+ssh -i ~/keys/aws-linux-jschen.pem ec2-user@ec2-34-227-189-116.compute-1.amazonaws.com
+
+scp -i ~\keys\aws-linux-jschen.pem c:\Users\JackChen\source\repos\SimplePress\simplepressdb.tar ec2-user@ec2-34-227-189-116.compute-1.amazonaws.com:~
+http://34.227.189.116
+** Postgres SQL
+*** remote connect postgresql
+**** Add or edit the following line in your postgresql.conf :
+listen_addresses = '*'
+**** Add the following line as the first line of pg_hba.conf. It allows access to all databases for all users with an encrypted password:
+#TYPE DATABASE USER CIDR-ADDRESS  METHOD
+host  all  all 0.0.0.0/0 md5
+
+*** backup database
+go to C:\Users\JackChen\source\repos\SimplCommerce\src\SimplCommerce.WebHost\bin\Debug\netcoreapp2.1\publish
+"C:\Program Files\PostgreSQL\10\bin\pg_dump.exe" -h localhost -U postgres db > file.sql
+git commit
+git push
+
+*** restore database
+psql -U postgres
+drop database db;
+create database db;
+\q #exit psql
+psql -U postgres < file.sql
+
+** start stop
+screen 
+
+* Card King
+mysql, installed on bash, 
+> sudo apt-get install mysql-server
+>  /usr/bin/mysql -u root -pjingshun
 
 * chrome
 
